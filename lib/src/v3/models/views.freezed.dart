@@ -228,7 +228,7 @@ mixin _$PersonMentionView {
   PersonSafe get recipient => throw _privateConstructorUsedError;
   CommentAggregates get counts => throw _privateConstructorUsedError;
   bool get creatorBannedFromCommunity => throw _privateConstructorUsedError;
-  bool get subscribed => throw _privateConstructorUsedError;
+  SubscribedType get subscribed => throw _privateConstructorUsedError;
   bool get saved => throw _privateConstructorUsedError;
   bool get creatorBlocked => throw _privateConstructorUsedError;
   VoteType? get myVote => throw _privateConstructorUsedError;
@@ -255,7 +255,7 @@ abstract class $PersonMentionViewCopyWith<$Res> {
       PersonSafe recipient,
       CommentAggregates counts,
       bool creatorBannedFromCommunity,
-      bool subscribed,
+      SubscribedType subscribed,
       bool saved,
       bool creatorBlocked,
       VoteType? myVote,
@@ -333,7 +333,7 @@ class _$PersonMentionViewCopyWithImpl<$Res, $Val extends PersonMentionView>
       subscribed: null == subscribed
           ? _value.subscribed
           : subscribed // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as SubscribedType,
       saved: null == saved
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
@@ -427,7 +427,7 @@ abstract class _$$_PersonMentionViewCopyWith<$Res>
       PersonSafe recipient,
       CommentAggregates counts,
       bool creatorBannedFromCommunity,
-      bool subscribed,
+      SubscribedType subscribed,
       bool saved,
       bool creatorBlocked,
       VoteType? myVote,
@@ -510,7 +510,7 @@ class __$$_PersonMentionViewCopyWithImpl<$Res>
       subscribed: null == subscribed
           ? _value.subscribed
           : subscribed // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as SubscribedType,
       saved: null == saved
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
@@ -544,7 +544,7 @@ class _$_PersonMentionView extends _PersonMentionView {
       required this.recipient,
       required this.counts,
       required this.creatorBannedFromCommunity,
-      required this.subscribed,
+      this.subscribed = SubscribedType.notSubscribed,
       required this.saved,
       required this.creatorBlocked,
       this.myVote,
@@ -571,7 +571,8 @@ class _$_PersonMentionView extends _PersonMentionView {
   @override
   final bool creatorBannedFromCommunity;
   @override
-  final bool subscribed;
+  @JsonKey()
+  final SubscribedType subscribed;
   @override
   final bool saved;
   @override
@@ -658,7 +659,7 @@ abstract class _PersonMentionView extends PersonMentionView {
       required final PersonSafe recipient,
       required final CommentAggregates counts,
       required final bool creatorBannedFromCommunity,
-      required final bool subscribed,
+      final SubscribedType subscribed,
       required final bool saved,
       required final bool creatorBlocked,
       final VoteType? myVote,
@@ -685,7 +686,7 @@ abstract class _PersonMentionView extends PersonMentionView {
   @override
   bool get creatorBannedFromCommunity;
   @override
-  bool get subscribed;
+  SubscribedType get subscribed;
   @override
   bool get saved;
   @override
@@ -1399,6 +1400,7 @@ mixin _$PostView {
   bool get saved => throw _privateConstructorUsedError;
   bool get read => throw _privateConstructorUsedError;
   bool get creatorBlocked => throw _privateConstructorUsedError;
+  int get unreadComments => throw _privateConstructorUsedError;
   VoteType? get myVote => throw _privateConstructorUsedError;
   String get instanceHost => throw _privateConstructorUsedError;
 
@@ -1423,6 +1425,7 @@ abstract class $PostViewCopyWith<$Res> {
       bool saved,
       bool read,
       bool creatorBlocked,
+      int unreadComments,
       VoteType? myVote,
       String instanceHost});
 
@@ -1454,6 +1457,7 @@ class _$PostViewCopyWithImpl<$Res, $Val extends PostView>
     Object? saved = null,
     Object? read = null,
     Object? creatorBlocked = null,
+    Object? unreadComments = null,
     Object? myVote = freezed,
     Object? instanceHost = null,
   }) {
@@ -1494,6 +1498,10 @@ class _$PostViewCopyWithImpl<$Res, $Val extends PostView>
           ? _value.creatorBlocked
           : creatorBlocked // ignore: cast_nullable_to_non_nullable
               as bool,
+      unreadComments: null == unreadComments
+          ? _value.unreadComments
+          : unreadComments // ignore: cast_nullable_to_non_nullable
+              as int,
       myVote: freezed == myVote
           ? _value.myVote
           : myVote // ignore: cast_nullable_to_non_nullable
@@ -1555,6 +1563,7 @@ abstract class _$$_PostViewCopyWith<$Res> implements $PostViewCopyWith<$Res> {
       bool saved,
       bool read,
       bool creatorBlocked,
+      int unreadComments,
       VoteType? myVote,
       String instanceHost});
 
@@ -1588,6 +1597,7 @@ class __$$_PostViewCopyWithImpl<$Res>
     Object? saved = null,
     Object? read = null,
     Object? creatorBlocked = null,
+    Object? unreadComments = null,
     Object? myVote = freezed,
     Object? instanceHost = null,
   }) {
@@ -1628,6 +1638,10 @@ class __$$_PostViewCopyWithImpl<$Res>
           ? _value.creatorBlocked
           : creatorBlocked // ignore: cast_nullable_to_non_nullable
               as bool,
+      unreadComments: null == unreadComments
+          ? _value.unreadComments
+          : unreadComments // ignore: cast_nullable_to_non_nullable
+              as int,
       myVote: freezed == myVote
           ? _value.myVote
           : myVote // ignore: cast_nullable_to_non_nullable
@@ -1654,6 +1668,7 @@ class _$_PostView extends _PostView {
       required this.saved,
       required this.read,
       required this.creatorBlocked,
+      required this.unreadComments,
       this.myVote,
       required this.instanceHost})
       : super._();
@@ -1680,13 +1695,15 @@ class _$_PostView extends _PostView {
   @override
   final bool creatorBlocked;
   @override
+  final int unreadComments;
+  @override
   final VoteType? myVote;
   @override
   final String instanceHost;
 
   @override
   String toString() {
-    return 'PostView(post: $post, creator: $creator, community: $community, creatorBannedFromCommunity: $creatorBannedFromCommunity, counts: $counts, subscribed: $subscribed, saved: $saved, read: $read, creatorBlocked: $creatorBlocked, myVote: $myVote, instanceHost: $instanceHost)';
+    return 'PostView(post: $post, creator: $creator, community: $community, creatorBannedFromCommunity: $creatorBannedFromCommunity, counts: $counts, subscribed: $subscribed, saved: $saved, read: $read, creatorBlocked: $creatorBlocked, unreadComments: $unreadComments, myVote: $myVote, instanceHost: $instanceHost)';
   }
 
   @override
@@ -1709,6 +1726,8 @@ class _$_PostView extends _PostView {
             (identical(other.read, read) || other.read == read) &&
             (identical(other.creatorBlocked, creatorBlocked) ||
                 other.creatorBlocked == creatorBlocked) &&
+            (identical(other.unreadComments, unreadComments) ||
+                other.unreadComments == unreadComments) &&
             (identical(other.myVote, myVote) || other.myVote == myVote) &&
             (identical(other.instanceHost, instanceHost) ||
                 other.instanceHost == instanceHost));
@@ -1727,6 +1746,7 @@ class _$_PostView extends _PostView {
       saved,
       read,
       creatorBlocked,
+      unreadComments,
       myVote,
       instanceHost);
 
@@ -1755,6 +1775,7 @@ abstract class _PostView extends PostView {
       required final bool saved,
       required final bool read,
       required final bool creatorBlocked,
+      required final int unreadComments,
       final VoteType? myVote,
       required final String instanceHost}) = _$_PostView;
   const _PostView._() : super._();
@@ -1779,6 +1800,8 @@ abstract class _PostView extends PostView {
   bool get read;
   @override
   bool get creatorBlocked;
+  @override
+  int get unreadComments;
   @override
   VoteType? get myVote;
   @override
@@ -2227,7 +2250,7 @@ mixin _$CommentView {
   CommunitySafe get community => throw _privateConstructorUsedError;
   CommentAggregates get counts => throw _privateConstructorUsedError;
   bool get creatorBannedFromCommunity => throw _privateConstructorUsedError;
-  String get subscribed => throw _privateConstructorUsedError;
+  SubscribedType get subscribed => throw _privateConstructorUsedError;
   bool get saved => throw _privateConstructorUsedError;
   bool get creatorBlocked => throw _privateConstructorUsedError;
   VoteType? get myVote => throw _privateConstructorUsedError;
@@ -2253,7 +2276,7 @@ abstract class $CommentViewCopyWith<$Res> {
       CommunitySafe community,
       CommentAggregates counts,
       bool creatorBannedFromCommunity,
-      String subscribed,
+      SubscribedType subscribed,
       bool saved,
       bool creatorBlocked,
       VoteType? myVote,
@@ -2325,7 +2348,7 @@ class _$CommentViewCopyWithImpl<$Res, $Val extends CommentView>
       subscribed: null == subscribed
           ? _value.subscribed
           : subscribed // ignore: cast_nullable_to_non_nullable
-              as String,
+              as SubscribedType,
       saved: null == saved
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
@@ -2414,7 +2437,7 @@ abstract class _$$_CommentViewCopyWith<$Res>
       CommunitySafe community,
       CommentAggregates counts,
       bool creatorBannedFromCommunity,
-      String subscribed,
+      SubscribedType subscribed,
       bool saved,
       bool creatorBlocked,
       VoteType? myVote,
@@ -2490,7 +2513,7 @@ class __$$_CommentViewCopyWithImpl<$Res>
       subscribed: null == subscribed
           ? _value.subscribed
           : subscribed // ignore: cast_nullable_to_non_nullable
-              as String,
+              as SubscribedType,
       saved: null == saved
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
@@ -2523,7 +2546,7 @@ class _$_CommentView extends _CommentView {
       required this.community,
       required this.counts,
       required this.creatorBannedFromCommunity,
-      this.subscribed = 'NotSubscribed',
+      this.subscribed = SubscribedType.notSubscribed,
       required this.saved,
       required this.creatorBlocked,
       this.myVote,
@@ -2549,7 +2572,7 @@ class _$_CommentView extends _CommentView {
   final bool creatorBannedFromCommunity;
   @override
   @JsonKey()
-  final String subscribed;
+  final SubscribedType subscribed;
   @override
   final bool saved;
   @override
@@ -2631,7 +2654,7 @@ abstract class _CommentView extends CommentView {
       required final CommunitySafe community,
       required final CommentAggregates counts,
       required final bool creatorBannedFromCommunity,
-      final String subscribed,
+      final SubscribedType subscribed,
       required final bool saved,
       required final bool creatorBlocked,
       final VoteType? myVote,
@@ -2656,7 +2679,7 @@ abstract class _CommentView extends CommentView {
   @override
   bool get creatorBannedFromCommunity;
   @override
-  String get subscribed;
+  SubscribedType get subscribed;
   @override
   bool get saved;
   @override
@@ -6904,7 +6927,7 @@ CommunityView _$CommunityViewFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CommunityView {
   CommunitySafe get community => throw _privateConstructorUsedError;
-  bool get subscribed => throw _privateConstructorUsedError;
+  SubscribedType get subscribed => throw _privateConstructorUsedError;
   bool get blocked => throw _privateConstructorUsedError;
   CommunityAggregates get counts => throw _privateConstructorUsedError;
   String get instanceHost => throw _privateConstructorUsedError;
@@ -6923,7 +6946,7 @@ abstract class $CommunityViewCopyWith<$Res> {
   @useResult
   $Res call(
       {CommunitySafe community,
-      bool subscribed,
+      SubscribedType subscribed,
       bool blocked,
       CommunityAggregates counts,
       String instanceHost});
@@ -6959,7 +6982,7 @@ class _$CommunityViewCopyWithImpl<$Res, $Val extends CommunityView>
       subscribed: null == subscribed
           ? _value.subscribed
           : subscribed // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as SubscribedType,
       blocked: null == blocked
           ? _value.blocked
           : blocked // ignore: cast_nullable_to_non_nullable
@@ -7002,7 +7025,7 @@ abstract class _$$_CommunityViewCopyWith<$Res>
   @useResult
   $Res call(
       {CommunitySafe community,
-      bool subscribed,
+      SubscribedType subscribed,
       bool blocked,
       CommunityAggregates counts,
       String instanceHost});
@@ -7038,7 +7061,7 @@ class __$$_CommunityViewCopyWithImpl<$Res>
       subscribed: null == subscribed
           ? _value.subscribed
           : subscribed // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as SubscribedType,
       blocked: null == blocked
           ? _value.blocked
           : blocked // ignore: cast_nullable_to_non_nullable
@@ -7061,7 +7084,7 @@ class __$$_CommunityViewCopyWithImpl<$Res>
 class _$_CommunityView extends _CommunityView {
   const _$_CommunityView(
       {required this.community,
-      required this.subscribed,
+      this.subscribed = SubscribedType.notSubscribed,
       required this.blocked,
       required this.counts,
       required this.instanceHost})
@@ -7073,7 +7096,8 @@ class _$_CommunityView extends _CommunityView {
   @override
   final CommunitySafe community;
   @override
-  final bool subscribed;
+  @JsonKey()
+  final SubscribedType subscribed;
   @override
   final bool blocked;
   @override
@@ -7123,7 +7147,7 @@ class _$_CommunityView extends _CommunityView {
 abstract class _CommunityView extends CommunityView {
   const factory _CommunityView(
       {required final CommunitySafe community,
-      required final bool subscribed,
+      final SubscribedType subscribed,
       required final bool blocked,
       required final CommunityAggregates counts,
       required final String instanceHost}) = _$_CommunityView;
@@ -7135,7 +7159,7 @@ abstract class _CommunityView extends CommunityView {
   @override
   CommunitySafe get community;
   @override
-  bool get subscribed;
+  SubscribedType get subscribed;
   @override
   bool get blocked;
   @override
