@@ -118,7 +118,7 @@ _$_PostView _$$_PostViewFromJson(Map<String, dynamic> json) => _$_PostView(
           CommunitySafe.fromJson(json['community'] as Map<String, dynamic>),
       creatorBannedFromCommunity: json['creator_banned_from_community'] as bool,
       counts: PostAggregates.fromJson(json['counts'] as Map<String, dynamic>),
-      subscribed: json['subscribed'] as bool,
+      subscribed: json['subscribed'] as String,
       saved: json['saved'] as bool,
       read: json['read'] as bool,
       creatorBlocked: json['creator_blocked'] as bool,
@@ -191,7 +191,7 @@ _$_CommentView _$$_CommentViewFromJson(Map<String, dynamic> json) =>
       counts:
           CommentAggregates.fromJson(json['counts'] as Map<String, dynamic>),
       creatorBannedFromCommunity: json['creator_banned_from_community'] as bool,
-      subscribed: json['subscribed'] as bool,
+      subscribed: json['subscribed'] as String? ?? 'NotSubscribed',
       saved: json['saved'] as bool,
       creatorBlocked: json['creator_blocked'] as bool,
       myVote: json['my_vote'] == null
